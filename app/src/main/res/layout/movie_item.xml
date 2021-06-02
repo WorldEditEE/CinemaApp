@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/film_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/film_poster"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/wonderw"
+            />
+
+        <TextView
+            android:id="@+id/text_view_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Title"
+            android:textColor="@color/colorPrimary"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/film_poster"
+            />
+
+        <TextView
+            android:id="@+id/text_view_genre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_below="@id/text_view_title"
+            android:text="Genre"
+            android:textColor="@android:color/darker_gray"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
+        <TextView
+            android:id="@+id/genre_rating_delimiter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_view_title"
+            android:layout_above="@+id/details_on_expand"
+            android:layout_toEndOf="@+id/text_view_genre"
+            android:layout_toRightOf="@+id/text_view_genre"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:text="|"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            />
+
+        <TextView
+            android:id="@+id/text_view_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_star"
+            android:drawableStart="@drawable/ic_star"
+            android:layout_below="@id/text_view_title"
+            android:layout_toRightOf="@+id/genre_rating_delimiter"
+            android:layout_toEndOf="@+id/genre_rating_delimiter"
+            android:text="Rating"
+            android:textColor="@android:color/darker_gray"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            />
+
+        <TextView
+            android:id="@+id/expand_icon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_keyboard_arrow_down_black_24dp"
+            android:drawableEnd="@drawable/ic_keyboard_arrow_down_black_24dp"
+            android:layout_below="@id/text_view_title"
+            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_toRightOf="@+id/text_view_rating"
+            android:layout_toEndOf="@+id/text_view_rating"
+            android:gravity="end"
+            android:drawableTint="@android:color/darker_gray"
+            android:text=""
+            />
+
+
+
+        <RelativeLayout
+            android:id="@+id/details_on_expand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_below="@+id/text_view_genre">
+
+            <TextView
+                android:id="@+id/text_view_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="Description"
+                android:textColor="@android:color/darker_gray"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+            <View
+                android:id="@+id/program_delimiter"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@+id/text_view_description"
+                android:background="@android:color/darker_gray"/>
+
+            <TextView
+                android:id="@+id/expanded_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_below="@+id/program_delimiter"
+                android:text="Today's availability"
+                android:textColor="@color/colorPrimary"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                />
+
+            <RadioGroup
+                android:id="@+id/hour_choices"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/expanded_text"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/radio_button_background"
+                    android:button="@android:color/transparent"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="Hour"
+                    android:checked="false"
+                    android:visibility="invisible"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
+                <RadioButton
+                    android:id="@+id/radio2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/radio_button_background"
+                    android:button="@android:color/transparent"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="Hour"
+                    android:checked="false"
+                    android:visibility="invisible"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
+                <RadioButton
+                    android:id="@+id/radio3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/radio_button_background"
+                    android:button="@android:color/transparent"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="Hour"
+                    android:checked="false"
+                    android:visibility="invisible"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
+                <RadioButton
+                    android:id="@+id/radio4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/radio_button_background"
+                    android:button="@android:color/transparent"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:paddingTop="7dp"
+                    android:paddingBottom="7dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="Hour"
+                    android:checked="false"
+                    android:visibility="invisible"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/openPage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/hour_choices"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/transparent"
+                android:text="RESERVE"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/titleColor"/>
+
+            <Button
+                android:id="@+id/heart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/hour_choices"
+                android:layout_toRightOf="@id/openPage"
+                android:gravity="right"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/transparent"
+                android:text=""
+                android:drawableRight="@drawable/ic_favorite_border_black_35dp"
+                />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
