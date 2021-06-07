@@ -230,14 +230,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/hour_choices"
-                android:layout_toRightOf="@id/openPage"
-                android:gravity="right"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="16dp"
+                android:layout_toRightOf="@id/openPage"
                 android:background="@android:color/transparent"
-                android:text=""
                 android:drawableRight="@drawable/ic_favorite_border_black_35dp"
-                />
+                android:gravity="right"
+                android:text=""
+                android:visibility="invisible" />
 
         </RelativeLayout>
 

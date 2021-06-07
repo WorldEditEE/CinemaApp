@@ -17,6 +17,7 @@ public class Movie {
     private String secondShow;
     private String thirdShow;
     private String imageURL;
+    private Boolean isFavourite;
 
     public Movie(int id, String title, String description, String genre, double rating, String firstShow, String secondShow, String thirdShow, String imageURL){
         this.id = id;
@@ -28,10 +29,11 @@ public class Movie {
         this.secondShow = secondShow;
         this.thirdShow = thirdShow;
         this.imageURL = imageURL;
+        this.isFavourite = false;
     }
 
     @Ignore
-    public Movie( String title, String description, String genre, double rating, String firstShow, String secondShow, String thirdShow, String imageURL){
+    public Movie(String title, String description, String genre, double rating, String firstShow, String secondShow, String thirdShow, String imageURL){
         this.title = title;
         this.description = description;
         this.genre = genre;
@@ -40,6 +42,12 @@ public class Movie {
         this.secondShow = secondShow;
         this.thirdShow = thirdShow;
         this.imageURL = imageURL;
+        this.isFavourite = false;
+    }
+
+    @Ignore
+    public Movie(){
+
     }
 
     public String getImageURL() {
@@ -112,6 +120,14 @@ public class Movie {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Boolean getFavourite() {
+        return isFavourite;
+    }
+
+    public void setFavourite(Boolean favourite) {
+        isFavourite = favourite;
     }
 }
 

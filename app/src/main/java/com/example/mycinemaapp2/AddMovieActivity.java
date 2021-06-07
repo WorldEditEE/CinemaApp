@@ -1,6 +1,8 @@
 package com.example.mycinemaapp2;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +10,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.mycinemaapp2.data.MainViewModel;
 import com.example.mycinemaapp2.data.MoviesDatabase;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -22,13 +29,15 @@ public class AddMovieActivity extends AppCompatActivity {
     private EditText editTextSecondShow;
     private EditText editTextThirdShow;
     private EditText editTextURLImages;
-    private MoviesDatabase database;
+    private MainViewModel viewModel;
+    private FirebaseFirestore db;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_movie);
+        db = FirebaseFirestore.getInstance();
         editTextTitle = findViewById(R.id.editTextTitle);
         editTextDescription = findViewById(R.id.editTextDescription);
         editTextGenre = findViewById(R.id.editTextTextGenre);
@@ -37,7 +46,7 @@ public class AddMovieActivity extends AppCompatActivity {
         editTextSecondShow = findViewById(R.id.editTextTextSecondShow);
         editTextThirdShow = findViewById(R.id.editTextTextThirdShow);
         editTextURLImages = findViewById(R.id.editTextURLImages);
-        database = MoviesDatabase.getInstance(this);
+        viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
     }
 
 
@@ -55,9 +64,20 @@ public class AddMovieActivity extends AppCompatActivity {
 
         if(isField(title,genre,description,rating,firstShow,secondShow,thirdShow,imageViewPoster)){
             Movie movie = new Movie(title,description,genre,rating,firstShow,secondShow,thirdShow,imageViewPoster);
-            database.moviesDao().insertMovie(movie);
-            Intent intent = new Intent(this,MainActivity.class);
-            startActivity(intent);
+            viewModel.insertMovie(movie);
+            db.collection("allMovies").add(movie).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                @Override
+                public void onSuccess(DocumentReference documentReference) {
+                    Intent intent = new Intent(AddMovieActivity.this,MainActivity.class);
+                    startActivity(intent);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(AddMovieActivity.this, "Ошибка добавления в Firestore", Toast.LENGTH_SHORT).show();
+                }
+            });
+
         }else {
             Toast.makeText(this, "Все поля должны быть заполненны", Toast.LENGTH_SHORT).show();
 

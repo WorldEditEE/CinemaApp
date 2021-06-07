@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MyCinemaApp2</string>
+    <string name="signOut">Выйти</string>
 </resources>
