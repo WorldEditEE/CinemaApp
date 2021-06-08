@@ -56,7 +56,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     interface OnNoteClickListener{
         void onLongClick(int position);
         void onReserveClick(int position, String time);
-        void onChangeFavouriteClick(int position, Button button);
+
     }
 
     interface setFavourite{
@@ -97,13 +97,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         String firstShow = movie.getFirstShow();
         String secondShow = movie.getSecondShow();
         String thirdShow = movie.getThirdShow();
-
-        boolean isFavourite = movie.getFavourite();
-        if(isFavourite){
-            holder.favouriteButton.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_favorite_red_35dp,0);
-        }else{
-            holder.favouriteButton.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_favorite_border_black_35dp,0);
-        }
 
         String urlToImage = movie.getImageURL();
         if(urlToImage != null && !urlToImage.isEmpty()){
@@ -173,8 +166,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         private TextView expandIcon;
         private Button reserveButton;
         private RadioGroup radioGroup;
-        private Button favouriteButton;
-
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -187,7 +178,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             expandIcon = itemView.findViewById(R.id.expand_icon);
             reserveButton = itemView.findViewById(R.id.openPage);
             radioGroup = itemView.findViewById(R.id.hour_choices);
-            favouriteButton = itemView.findViewById(R.id.heart);
 
 
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -210,17 +200,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                             String selectedTime = (String) selectedButton.getText();
                             onNoteClickListener.onReserveClick(getAdapterPosition(),selectedTime);
                         }
-
-                    }
-                }
-            });
-
-            favouriteButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(onNoteClickListener != null){
-                        onNoteClickListener.onChangeFavouriteClick(getAdapterPosition(),favouriteButton);
-                    }else{
 
                     }
                 }

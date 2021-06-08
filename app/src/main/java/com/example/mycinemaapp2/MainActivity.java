@@ -12,34 +12,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.mycinemaapp2.data.FavouriteMovie;
 import com.example.mycinemaapp2.data.MainViewModel;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.EventListener;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -91,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerViewMovies);
         adapter = new MovieAdapter();
         movies = new ArrayList<>();
-        getData();
         i = 0;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
@@ -99,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.setMovieArrayList(movies);
         recyclerView.setAdapter(adapter);
         FirebaseUser userFromReg = mAuth.getCurrentUser();
+        getData();
         if(userFromReg != null){
             user = new User(userFromReg.getUid(),"user");
             db.collection("users").document(userFromReg.getEmail()).collection("role").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -164,24 +157,6 @@ public class MainActivity extends AppCompatActivity {
                 openPage(position, time);
             }
 
-            @Override
-            public void onChangeFavouriteClick(int position, Button button) {
-
-                Movie movie = movies.get(position);
-                FavouriteMovie favouriteMovie = viewModel.getFavouriteMovieById(movie.getId());
-                if(favouriteMovie == null){
-                    viewModel.insertFavouriteMovie(new FavouriteMovie(movie));
-                    Toast.makeText(MainActivity.this, "Добавлено", Toast.LENGTH_SHORT).show();
-                    button.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_favorite_red_35dp,0);
-                    movie.setFavourite(true);
-                }else {
-                    viewModel.deleteFavouriteMovie(favouriteMovie);
-                    Toast.makeText(MainActivity.this, "Удалено", Toast.LENGTH_SHORT).show();
-                    button.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_favorite_border_black_35dp,0);
-                    movie.setFavourite(false);
-                }
-
-            }
         });
         if(userFromReg == null){
             signOut();
